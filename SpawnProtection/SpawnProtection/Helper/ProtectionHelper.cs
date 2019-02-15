@@ -47,7 +47,7 @@ namespace SpawnProtection.Helper {
         }
 
         public static void AddEvasion(List<AbstractActor> actors) {
-            int evasionToAdd = SpawnProtection.Config.EvasionPips);
+            int evasionToAdd = SpawnProtection.Config.EvasionPips;
             CombatGameState combatState = UnityGameInstance.BattleTechGame.Combat;
             
             foreach (AbstractActor actor in actors) {

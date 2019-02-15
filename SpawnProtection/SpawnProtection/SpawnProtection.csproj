@@ -51,8 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\CombatantHelper.cs" />
+    <Compile Include="Patches\TeamPatches.cs" />
+    <Compile Include="Patches\TurnDirectorPatches.cs" />
     <Compile Include="SpawnProtection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helper\ProtectionHelper.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Utils\ModConfig.cs" />
   </ItemGroup>
@@ -60,9 +64,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patches\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)" "$(BattleTechGame)Mods\SpawnProtection" /y</PostBuildEvent>
