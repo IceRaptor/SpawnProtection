@@ -42,7 +42,11 @@ namespace SpawnProtection.Helper {
 
         public static void BraceAll(List<AbstractActor> actors) {
             foreach (AbstractActor actor in actors) {
-                actor.ApplyBraced();
+                // Turrets don't get protection
+                if (actor.GetType() != typeof(Turret)) {
+                    actor.ApplyBraced();
+                }
+                
             }
         }
 
@@ -51,11 +55,15 @@ namespace SpawnProtection.Helper {
             CombatGameState combatState = UnityGameInstance.BattleTechGame.Combat;
             
             foreach (AbstractActor actor in actors) {
-                SpawnProtection.Logger.Log($"Adding '{evasionToAdd}' evasion pips to actor:{CombatantHelper.Label(actor)}");
+                // Turrets don't get protection
+                if (actor.GetType() != typeof(Turret)) {
+                    SpawnProtection.Logger.Log($"Adding '{evasionToAdd}' evasion pips to actor:{CombatantHelper.Label(actor)}");
 
-                actor.EvasivePipsCurrent += evasionToAdd;
-                AccessTools.Property(typeof(AbstractActor), "EvasivePipsTotal").SetValue(actor, actor.EvasivePipsCurrent, null);
-                combatState.MessageCenter.PublishMessage(new EvasiveChangedMessage(actor.GUID, actor.EvasivePipsCurrent));
+                    actor.EvasivePipsCurrent += evasionToAdd;
+                    AccessTools.Property(typeof(AbstractActor), "EvasivePipsTotal").SetValue(actor, actor.EvasivePipsCurrent, null);
+                    combatState.MessageCenter.PublishMessage(new EvasiveChangedMessage(actor.GUID, actor.EvasivePipsCurrent));
+
+                }
             }
         }
     }
