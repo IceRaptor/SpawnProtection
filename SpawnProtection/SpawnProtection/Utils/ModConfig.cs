@@ -3,8 +3,8 @@ namespace SpawnProtection {
 
     public class ModConfig {
 
-        // If true, extra logging will be used
         public bool Debug = false;
+        public bool Trace = false;
 
         public bool ApplyGuard = true;
 

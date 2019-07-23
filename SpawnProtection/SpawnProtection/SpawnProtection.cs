@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Reflection;
 
 namespace SpawnProtection {
-    public class SpawnProtection {
+    public class Mod {
 
         public const string HarmonyPackage = "us.frostraptor.SpawnProtection";
 
-        public static Logger Logger;
+        public static Logger Log;
         public static string ModDir;
         public static ModConfig Config;
 
@@ -22,21 +22,21 @@ namespace SpawnProtection {
 
             Exception settingsE;
             try {
-                SpawnProtection.Config = JsonConvert.DeserializeObject<ModConfig>(settingsJSON);
+                Mod.Config = JsonConvert.DeserializeObject<ModConfig>(settingsJSON);
             } catch (Exception e) {
                 settingsE = e;
-                SpawnProtection.Config = new ModConfig();
+                Mod.Config = new ModConfig();
             }
 
-            Logger = new Logger(modDirectory, "spawn_protection");
+            Log = new Logger(modDirectory, "spawn_protection");
             
             Assembly asm = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
-            Logger.Log($"Assembly version: {fvi.ProductVersion}");
+            Log.Info($"Assembly version: {fvi.ProductVersion}");
 
-            Logger.LogIfDebug($"ModDir is:{modDirectory}");
-            Logger.LogIfDebug($"mod.json settings are:({settingsJSON})");
-            Logger.Log($"mergedConfig is:{SpawnProtection.Config}");
+            Log.Debug($"ModDir is:{modDirectory}");
+            Log.Debug($"mod.json settings are:({settingsJSON})");
+            Log.Info($"mergedConfig is:{Mod.Config}");
 
             var harmony = HarmonyInstance.Create(HarmonyPackage);
             harmony.PatchAll(asm);
