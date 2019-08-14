@@ -1,6 +1,5 @@
 ﻿using BattleTech;
 using Harmony;
-using SpawnProtection.Helper;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,6 +43,7 @@ namespace SpawnProtection.Helper {
             foreach (AbstractActor actor in actors) {
                 // Turrets don't get protection
                 if (actor.GetType() != typeof(Turret)) {
+                    Mod.Log.Info($"Applying braced state to actor:{CombatantHelper.Label(actor)} of type:{actor.GetType()}");
                     actor.ApplyBraced();
                 }
                 
@@ -57,7 +57,7 @@ namespace SpawnProtection.Helper {
             foreach (AbstractActor actor in actors) {
                 // Turrets don't get protection
                 if (actor.GetType() != typeof(Turret)) {
-                    Mod.Log.Info($"Adding '{evasionToAdd}' evasion pips to actor:{CombatantHelper.Label(actor)}");
+                    Mod.Log.Info($"Adding '{evasionToAdd}' evasion pips to actor:{CombatantHelper.Label(actor)} of type:{actor.GetType()}");
 
                     actor.EvasivePipsCurrent += evasionToAdd;
                     AccessTools.Property(typeof(AbstractActor), "EvasivePipsTotal").SetValue(actor, actor.EvasivePipsCurrent, null);
